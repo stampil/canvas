@@ -61,7 +61,7 @@ $(window).load(function(){ //permet de savoir que toute la page est chargé sur 
     });
     
     $('#canvas').dblclick(function(){
-        temp_path+='ctx.closePath();ctx.stroke();ctx.fillStyle="'+give_me_a_color()+'";ctx.fill();ctx.restore()';
+        temp_path+='ctx.closePath();ctx.stroke();ctx.fillStyle="'+give_me_a_color()+'";ctx.fill();ctx.strokeStyle = "black";ctx.lineWidth   = 2;ctx.restore()';
         path.push(temp_path);
         nb_click=0;
         temp_path='';
