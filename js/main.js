@@ -28,8 +28,8 @@ $(window).load(function(){ //permet de savoir que toute la page est chargé sur 
         
         //Affichage :
         affiche_pos({x:1,y:10}); //ds fonction.js
-        //affiche_heure({x:154,y:13});
-        affiche_heure(position);
+        affiche_heure({x:154,y:13});
+        affiche_cross(position);
         affiche_direction({x:180,y:185});
         affiche_position({x:1,y:185});
         affiche_path();

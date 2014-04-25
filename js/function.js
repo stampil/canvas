@@ -22,6 +22,10 @@ function affiche_direction(p){
     ctx.fillText(direction,p.x,p.y); // doc canvas : ctx.fillText( text, x, y )
 }
 
+function affiche_cross(p){
+    ctx.fillText('☻',p.x,p.y); // doc canvas : ctx.fillText( text, x, y )
+}
+
 function affiche_heure(p){
      // p la position où on l'affiche sur le canvas
     var d = new Date();
@@ -38,7 +42,7 @@ function affiche_path(){
 function is_in_paths(){
     for(var i=0;i <path.length; i++){
         eval(path[i]);
-        if(ctx.isPointInPath(position.x, position.y)) return true;
+        if(ctx.isPointInPath(position.x, position.y) || ctx.isPointInPath(position.x+8, position.y) || ctx.isPointInPath(position.x, position.y-8) || ctx.isPointInPath(position.x+8, position.y-8)) return true;
         //TODO faire position + taille image pour checker les 4 coins de l'image
     }
     return false;
