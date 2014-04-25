@@ -5,7 +5,7 @@ var cursor ={x:0,y:0}; // défini un objet nommé cursor ayant 2 methode : x et 
 var TO_RADIANS = Math.PI/180; 
 var img_hourglass = new Image();
 img_hourglass.src = 'img/hourglass.png';
-var angle = angle2 = 0;
+var angle = angle2 = angle3 = 0;
 
 
 
@@ -27,6 +27,7 @@ $(window).load(function(){ //permet de savoir que toute la page est chargé sur 
         affiche_heure({x:154,y:13});
         //affiche_pos(cursor);
         drawRotatedImage(img_hourglass, {x:180,y:40}, --angle2%360);
+        drawRotatedImage(img_hourglass, {x:27,y:51}, ++angle3%360);
         drawRotatedImage(img_hourglass, cursor, ++angle%360);
         
     },refresh); //boucle toute les x secondes
