@@ -3,12 +3,23 @@ function make_canvas(bg){
     document.getElementById('canvas').width=bg.w;
     document.getElementById('canvas').height=bg.h;
     ctx = $('#canvas').get(0).getContext('2d'); // issue de la doc canvas
+    ctx.fillStyle = '#cdcdcd';
 };
 
 function affiche_pos(p){
     // p la position où on l'affiche sur le canvas
     //cursor : la globale calculé avec l'evenement on mouse over
     ctx.fillText('('+cursor.x+','+cursor.y+')',p.x,p.y); // doc canvas : ctx.fillText( text, x, y )
+}
+
+function affiche_position(p){
+    // p la position où on l'affiche sur le canvas
+    //cursor : la globale calculé avec l'evenement on mouse over
+    ctx.fillText('('+position.x+','+position.y+')',p.x,p.y); // doc canvas : ctx.fillText( text, x, y )
+}
+
+function affiche_direction(p){
+    ctx.fillText(direction,p.x,p.y); // doc canvas : ctx.fillText( text, x, y )
 }
 
 function affiche_heure(p){
@@ -18,6 +29,19 @@ function affiche_heure(p){
     
 }
 
+function affiche_path(){
+    for (var i=0; i<path.length; i++){
+        eval(path[i]);
+    }
+}
+
+function give_me_a_color(){
+    return '#'+Math.floor(Math.random()*16777215).toString(16);
+}
+
+/*
+ * exemple : drawRotatedImage(img_hourglass, {x:27,y:51}, ++angle3%360);  ou --angle3%360
+ */
 function drawRotatedImage(image, p, angle) { 
         
 	// save the current co-ordinate system 
