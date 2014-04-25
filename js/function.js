@@ -17,3 +17,24 @@ function affiche_heure(p){
     ctx.fillText(d.getHours()+':'+(d.getMinutes()<10?'0'+d.getMinutes():d.getMinutes())+':'+(d.getSeconds()<10?'0'+d.getSeconds():d.getSeconds()),p.x,p.y);
     
 }
+
+function drawRotatedImage(image, p, angle) { 
+        
+	// save the current co-ordinate system 
+	// before we screw with it
+	ctx.save(); 
+ 
+	// move to the middle of where we want to draw our image
+	ctx.translate(p.x, p.y);
+ 
+	// rotate around that point, converting our 
+	// angle from degrees to radians 
+	ctx.rotate(angle * TO_RADIANS);
+ 
+	// draw it up and to the left by half the width
+	// and height of the image 
+	ctx.drawImage(image, -(image.width/2), -(image.height/2));
+ 
+	// and restore the co-ords to how they were when we began
+	ctx.restore(); 
+}

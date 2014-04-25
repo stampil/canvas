@@ -1,7 +1,12 @@
 var ctx; // context du canvas, les methodes passeront par ça
-var t; // interval de raffraichissement, peut etre killé par : clearInteval(t);
+var t; // interval de raffraichissement, peut etre killé par : clearInterval(t);
 var refresh = 1/30; // 30 fps
 var cursor ={x:0,y:0}; // défini un objet nommé cursor ayant 2 methode : x et y
+var TO_RADIANS = Math.PI/180; 
+var img_hourglass = new Image();
+img_hourglass.src = 'img/hourglass.png';
+var angle = angle2 = 0;
+
 
 
 
@@ -20,7 +25,9 @@ $(window).load(function(){ //permet de savoir que toute la page est chargé sur 
         //Affichage :
         affiche_pos({x:1,y:10}); //ds fonction.js
         affiche_heure({x:154,y:13});
-        affiche_pos(cursor);
+        //affiche_pos(cursor);
+        drawRotatedImage(img_hourglass, {x:180,y:40}, --angle2%360);
+        drawRotatedImage(img_hourglass, cursor, ++angle%360);
         
     },refresh); //boucle toute les x secondes
     
