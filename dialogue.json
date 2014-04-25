@@ -1,0 +1,79 @@
+{
+    "pnj_1": {
+        "1": [
+            {
+                "dial": "bj1",
+                "disp": false
+            },
+            {
+                "dial": "bj2",
+                "disp": false
+            },
+            {
+                "dial": "bj3",
+                "disp": false
+            }, {
+                "dial": "bj4",
+                "disp": false
+            }
+
+        ],
+        "55": [
+            {
+                "dial": "rebj1",
+                "disp": false
+            },
+            {
+                "dial": "rebj2",
+                "disp": false
+            },
+            {
+                "dial": "rebj3",
+                "disp": false
+            }, {
+                "dial": "rebj4",
+                "disp": false
+            }
+        ]
+    },
+
+    "pnj_2": {
+        "td":"0",
+        "tf":"5",
+        "1": [
+            {
+                "dial": "bj1",
+                "disp": false
+            },
+            {
+                "dial": "bj2",
+                "disp": false
+            },
+            {
+                "dial": "bj3",
+                "disp": false
+            }, {
+                "dial": "bj4",
+                "disp": false
+            }
+
+        ],
+        "55": [
+            {
+                "dial": "rebj1",
+                "disp": false
+            },
+            {
+                "dial": "rebj2",
+                "disp": false
+            },
+            {
+                "dial": "rebj3",
+                "disp": false
+            }, {
+                "dial": "rebj4",
+                "disp": false
+            }
+        ]
+    }
+}
