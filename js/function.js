@@ -35,6 +35,15 @@ function affiche_path(){
     }
 }
 
+function is_in_paths(){
+    for(var i=0;i <path.length; i++){
+        eval(path[i]);
+        if(ctx.isPointInPath(position.x, position.y)) return true;
+        //TODO faire position + taille image pour checker les 4 coins de l'image
+    }
+    return false;
+}
+
 function give_me_a_color(){
     return '#'+Math.random().toString(16).substr(2,6);
 }

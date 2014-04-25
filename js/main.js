@@ -79,21 +79,25 @@ $(window).load(function(){ //permet de savoir que toute la page est chargé sur 
             case 39:
                 if(position.x<$('#canvas').width())
                 position.x++;
+                if(is_in_paths()) position.x--;
             break;
             case 81:
             case 37:
                 if(position.x>0)
                 position.x--;
+                if(is_in_paths()) position.x++;
             break;
             case 83:
             case 40:
                 if(position.y<$('#canvas').height())
                 position.y++;
+                 if(is_in_paths()) position.y--;
             break;
             case 90:
             case 38:
                 if(position.y>0)
                 position.y--;
+                if(is_in_paths()) position.y++;
             break;            
         }
        direction= e.keyCode; 
