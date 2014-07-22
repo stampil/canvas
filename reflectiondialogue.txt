@@ -1,8 +1,7 @@
 plusieurs choix de dialogue doivent etre possible indépendemment, dépend du personnage et de different flag d'affichage pour savoir quand afficher le dialogue
 
-dialogues : [
-{"rattacherA":"pnj1", "dialogue":"Que voulez vous?", "quiParle":"pnj_1", "need_event": ["event_chapitre1"], "need_no_event": ["event_chapitre2"], launch_event:["end_dial1_pnj1"] },
-{"rattacherA":"pnj1", "dialogue":"Manger.", "quiparle":"user",  "need_event": ["event_debut_jeu", "end_dial1_pnj1"], "need_no_event": ["event_chapitre2"],  launch_event:["end_dial2_pnj1"]},
-{"rattacherA":"pnj1", "dialogue":"Boire.", "quiparle":"user",   "need_event": ["event_debut_jeu", "end_dial1_pnj1"], "need_no_event": ["event_chapitre2"], launch_event:["end_dial3_pnj1"]},
-
+var dialogues = [
+{"rattacherA":"pnj1", "dialogue":"Que voulez vous?", "quiParle":"pnj_1", "need_event": ["event_chapitre1"], "need_no_event": ["event_chapitre2"], "launch_event":["end_dial1_pnj1"] },
+{"rattacherA":"pnj1", "dialogue":"Manger.", "quiparle":"user",  "need_event": ["event_debut_jeu", "end_dial1_pnj1"], "need_no_event": ["event_chapitre2"],  "launch_event":["end_dial2_pnj1"]},
+{"rattacherA":"pnj1", "dialogue":"Boire.", "quiparle":"user",   "need_event": ["event_debut_jeu", "end_dial1_pnj1"], "need_no_event": ["event_chapitre2"], "launch_event":["end_dial3_pnj1"]}
 ];
