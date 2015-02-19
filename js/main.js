@@ -38,7 +38,10 @@ $(window).load(function(){ //permet de savoir que toute la page est chargé sur 
         affiche_symbol({x:138,y:126},type_symbole.leger,couleur.rouge,type_vaisseau.combat,2,'cutlass blue','306_hawk_fabian');
         affiche_symbol({x:264,y:126},type_symbole.leger,couleur.rouge,type_vaisseau.combat,3,'avenger','test nom');
         affiche_symbol({x:330,y:196},type_symbole.leger,couleur.rouge,type_vaisseau.combat,4,'aurora LN','big');
-        affiche_symbol({x:452,y:305},type_symbole.moyen,couleur.jaune,type_vaisseau.marchand,'L','test','cursor');
+        affiche_symbol({x:452,y:325},type_symbole.moyen,couleur.jaune,type_vaisseau.VIP,'3','test','cursor');
+        affiche_symbol({x:582,y:325},type_symbole.moyen,couleur.jaune,type_vaisseau.medical,'4','test','cursor');
+        affiche_symbol({x:202,y:375},type_symbole.lourd,couleur.vert,type_vaisseau.combat,'1','test','cursor');
+        affiche_symbol({x:8,y:375},type_symbole.lourd,couleur.vert,type_vaisseau.marchand,'L','test','cursor');
         //affiche_pos(cursor);
         //drawRotatedImage(img_hourglass, {x:180,y:40}, --angle2%360);
         //drawRotatedImage(img_hourglass, {x:27,y:51}, ++angle3%360);
@@ -62,8 +65,7 @@ $(window).load(function(){ //permet de savoir que toute la page est chargé sur 
             temp_path+='ctx.lineTo('+e.offsetX+','+e.offsetY+');';
         }
         nb_click++;
-        
-        
+    
     });
     
     $('#canvas').dblclick(function(){
