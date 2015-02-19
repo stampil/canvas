@@ -10,14 +10,16 @@ var angle = angle2 = angle3 = 0;
 var direction = 0;
 var path = new Array();
 var temp_path='';
-
+var couleur = {"rouge":"#ED1313","bleu":"#139EED","vert":"#13ED1A","jaune":"yellow"};
+var type_vaisseau = {"neutre":0, "medical":1,"VIP":2,"combat":3, "marchand":4};
+var type_symbole = {"leger":0, "moyen":1,"lourd":2};
 
 
 
 $(window).load(function(){ //permet de savoir que toute la page est chargé sur le client pour manipuler l'affichage
     
     //TODO recup taille canvas par image d'un background
-    var bg ={w:200,h:200}; // en attendant on peut fixer la taille du canvas a 200x200
+    var bg ={w:800,h:600}; // en attendant on peut fixer la taille du canvas a 200x200
     
     //creation canvas avec taille dynamique ( sur chrome lancer la console ( F12, onglet console ) et ecrire  make_canvas({w:300,h:100}) par exemple
     make_canvas(bg);  //ds fonction.js
@@ -27,12 +29,16 @@ $(window).load(function(){ //permet de savoir que toute la page est chargé sur 
         ctx.clearRect(0,0,$('#canvas').width(),$('#canvas').height()); //efface le canvas entier toute les x seconde, principe du dessin animé qui défile
         
         //Affichage :
-        affiche_pos({x:1,y:10}); //ds fonction.js
-        affiche_heure({x:154,y:13});
-        affiche_cross(position);
-        affiche_direction({x:180,y:185});
-        affiche_position({x:1,y:185});
-        affiche_path();
+        affiche_pos({x:1,y:22}); //ds fonction.js
+        affiche_heure({x:1,y:10});
+
+        
+
+        affiche_symbol({x:200,y:60},type_symbole.leger,couleur.rouge,type_vaisseau.combat,'L','super hornet','gourmand');
+        affiche_symbol({x:138,y:126},type_symbole.leger,couleur.rouge,type_vaisseau.combat,2,'cutlass blue','306_hawk_fabian');
+        affiche_symbol({x:264,y:126},type_symbole.leger,couleur.rouge,type_vaisseau.combat,3,'avenger','test nom');
+        affiche_symbol({x:330,y:196},type_symbole.leger,couleur.rouge,type_vaisseau.combat,4,'aurora LN','big');
+        affiche_symbol({x:452,y:305},type_symbole.moyen,couleur.jaune,type_vaisseau.marchand,'L','test','cursor');
         //affiche_pos(cursor);
         //drawRotatedImage(img_hourglass, {x:180,y:40}, --angle2%360);
         //drawRotatedImage(img_hourglass, {x:27,y:51}, ++angle3%360);
