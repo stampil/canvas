@@ -3,7 +3,7 @@ function make_canvas(bg) {
     document.getElementById('canvas').width = bg.w;
     document.getElementById('canvas').height = bg.h;
     ctx = $('#canvas').get(0).getContext('2d'); // issue de la doc canvas
-    ctx.fillStyle = 'cyan';
+    ctx.fillStyle = 'black';
     $('#canvas').css("background","url('img/space_map_grid_only.png')");
 
 }
@@ -176,7 +176,7 @@ function Symbole(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
                         break;
                 }
                 
-                ctx.fillStyle = 'cyan';
+                ctx.fillStyle = 'black';
                 ctx.fillText(this.nomVaiss, this.pos.x, this.pos.y + 10);
                 ctx.fillText(this.nomJoueur, this.pos.x, this.pos.y + 20);
                 break;
@@ -189,6 +189,14 @@ function Symbole(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
                 ctx.lineTo(this.pos.x - 20, this.pos.y - 55);
                 ctx.closePath();
                 ctx.lineJoin = 'round';
+                if (ctx.isPointInPath(clicked.x, clicked.y)) {
+                    this.clicked = true;
+                    ctx.lineWidth = "6";
+                }
+                else {
+                    this.clicked = false;
+                    ctx.lineWidth = "3";
+                }
                 ctx.stroke();
                 ctx.fillStyle = this.color;
                 ctx.shadowColor = '#999';
@@ -254,7 +262,7 @@ function Symbole(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
                         ctx.fillText(this.num, this.pos.x + 31, this.pos.y - 64);
                         break;
                 }
-                ctx.fillStyle = 'cyan';
+                ctx.fillStyle = 'black';
                 ctx.fillText(this.nomVaiss, this.pos.x, this.pos.y + 10);
                 ctx.fillText(this.nomJoueur, this.pos.x, this.pos.y + 20);
                 break;
@@ -268,6 +276,14 @@ function Symbole(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
                 ctx.lineTo(this.pos.x, this.pos.y - 145);
                 ctx.closePath();
                 ctx.lineJoin = 'round';
+                if (ctx.isPointInPath(clicked.x, clicked.y)) {
+                    this.clicked = true;
+                    ctx.lineWidth = "6";
+                }
+                else {
+                    this.clicked = false;
+                    ctx.lineWidth = "3";
+                }
                 ctx.stroke();
                 ctx.fillStyle = this.color;
                 ctx.shadowColor = '#999';
@@ -333,7 +349,7 @@ function Symbole(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
                         ctx.fillText(this.num, this.pos.x + 75, this.pos.y - 134);
                         break;
                 }
-                ctx.fillStyle = 'cyan';
+                ctx.fillStyle = 'black';
                 ctx.fillText(this.nomVaiss, this.pos.x, this.pos.y + 10);
                 ctx.fillText(this.nomJoueur, this.pos.x, this.pos.y + 20);
 

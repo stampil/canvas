@@ -12,10 +12,12 @@ var couleurs = [couleur.rouge, couleur.bleu, couleur.vert, couleur.jaune];
 var type_vaisseau = {"neutre": 0, "medical": 1, "VIP": 2, "combat": 3, "marchand": 4};
 var type_symbole = {"leger": 0, "moyen": 1, "lourd": 2};
 var symboles = [
-    new Symbole({x: 200, y: 60}, type_symbole.leger, 0, type_vaisseau.combat, 'L', 'super hornet', 'gourmand'),
-    new Symbole({x: 138, y: 126}, type_symbole.leger, 0, type_vaisseau.combat, 2, 'hornet ghost', '306_hawk_fabian'),
-    new Symbole({x: 264, y: 126}, type_symbole.leger, 0, type_vaisseau.combat, 3, 'avenger', 'test nom'),
-    new Symbole({x: 330, y: 196}, type_symbole.leger, 0, type_vaisseau.neutre, 4, 'aurora LX', 'big')
+    new Symbole({x: 200, y: 90}, type_symbole.leger, 0, type_vaisseau.combat, 'L', 'super hornet', 'gourmand'),
+    new Symbole({x: 138, y: 156}, type_symbole.leger, 0, type_vaisseau.combat, 2, 'hornet ghost', '306_hawk_fabian'),
+    new Symbole({x: 264, y: 156}, type_symbole.leger, 0, type_vaisseau.combat, 3, 'avenger', 'test nom'),
+    new Symbole({x: 330, y: 226}, type_symbole.leger, 0, type_vaisseau.neutre, 4, 'aurora LX', 'big'),
+    new Symbole({x: 483, y: 195}, type_symbole.lourd, 2, type_vaisseau.marchand, 'L', 'Idriss', 'baraque a frite'),
+    new Symbole({x: 530, y: 326}, type_symbole.moyen, 2, type_vaisseau.medical, '2', 'Cutlass Red', 'un mec')
 ];
 var bg = {w: 800, h: 600};
 var clicked = position;
