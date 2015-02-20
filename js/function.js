@@ -3,10 +3,11 @@ function make_canvas(bg) {
     document.getElementById('canvas').width = bg.w;
     document.getElementById('canvas').height = bg.h;
     ctx = $('#canvas').get(0).getContext('2d'); // issue de la doc canvas
-    ctx.fillStyle = '#cdcdcd';
-    ctx.scale(0.8,0.8);
+    ctx.fillStyle = 'cyan';
+    $('#canvas').css("background","url('img/space_map_grid_only.png')");
+
 }
-;
+
 
 function affiche_pos(p) {
     // p la position où on l'affiche sur le canvas
@@ -24,9 +25,7 @@ function affiche_direction(p) {
     ctx.fillText(direction, p.x, p.y); // doc canvas : ctx.fillText( text, x, y )
 }
 
-function affiche_cross(p) {
-    ctx.fillText('☻', p.x, p.y); // doc canvas : ctx.fillText( text, x, y )
-}
+
 
 function affiche_heure(p) {
     // p la position où on l'affiche sur le canvas
@@ -35,21 +34,9 @@ function affiche_heure(p) {
 
 }
 
-function affiche_path() {
-    for (var i = 0; i < path.length; i++) {
-        eval(path[i]);
-    }
-}
 
-function is_in_paths() {
-    for (var i = 0; i < path.length; i++) {
-        eval(path[i]);
-        if (ctx.isPointInPath(position.x, position.y) || ctx.isPointInPath(position.x + 8, position.y) || ctx.isPointInPath(position.x, position.y - 8) || ctx.isPointInPath(position.x + 8, position.y - 8))
-            return true;
-        //TODO faire position + taille image pour checker les 4 coins de l'image
-    }
-    return false;
-}
+
+
 
 function give_me_a_color() {
     return '#' + Math.random().toString(16).substr(2, 6);
@@ -79,253 +66,322 @@ function drawRotatedImage(image, p, angle) {
     ctx.restore();
 }
 
-function affiche_symbol(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
-    ctx.save();
-    ctx.lineWidth = "3";
-    switch (symbole) {
-        case type_symbole.leger:
-            ctx.beginPath();
-            ctx.moveTo(pos.x, pos.y);
-            ctx.lineTo(pos.x + 60, pos.y);
-            ctx.lineTo(pos.x + 60, pos.y - 35);
-            ctx.lineTo(pos.x + 30, pos.y - 45);
-            ctx.lineTo(pos.x, pos.y - 35);
-            ctx.closePath();
-            ctx.lineJoin = 'round';
-            ctx.stroke();
-            ctx.fillStyle = color;
-            ctx.shadowColor = '#999';
-            ctx.shadowBlur = 10;
-            ctx.shadowOffsetX = 5;
-            ctx.shadowOffsetY = 5;
-            ctx.fill();
-            ctx.lineWidth = "2";
-            switch (type) {
-                case type_vaisseau.medical:
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x + 30, pos.y - 45);
-                    ctx.lineTo(pos.x + 30, pos.y);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x, pos.y - 20);
-                    ctx.lineTo(pos.x + 60, pos.y - 20);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.fillStyle = 'black';
-                    ctx.fillText(num, pos.x + 20, pos.y - 34);
-                    break;
-                case type_vaisseau.VIP:
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x, pos.y - 25);
-                    ctx.lineTo(pos.x + 30, pos.y);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x + 60, pos.y - 25);
-                    ctx.lineTo(pos.x + 30, pos.y);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.fillStyle = 'black';
-                    ctx.fillText(num, pos.x + 27, pos.y - 34);
-                    break;
-                case type_vaisseau.combat :
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x, pos.y - 35);
-                    ctx.lineTo(pos.x + 60, pos.y);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x + 60, pos.y - 35);
-                    ctx.lineTo(pos.x, pos.y);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.fillStyle = 'black';
-                    ctx.fillText(num, pos.x + 27, pos.y - 34);
-                    break;
-                case type_vaisseau.marchand :
-                    ;
-                    ctx.beginPath();
-                    ctx.rect(pos.x + 10, pos.y - 25, 40, 20);
-                    ctx.closePath();
-                    ctx.stroke();
+function Symbole(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
+    this.color = '';
+    this.indice_couleur = color;
+    this.symbole = symbole; // type_symbole.leger ...
+    this.posOrigin = pos;
+    this.pos = pos;
+    this.type = type; //type_vaisseau.medical...
+    this.typeOrigin = type;
+    this.num = num; //position escadrille
+    this.nomVaiss = nomVaiss;
+    this.nomJoueur = nomJoueur;
+    this.mouvement = false;
+    this.clicked = false;
 
-
-                    ctx.fillStyle = 'black';
-                    ctx.fillText(num, pos.x + 27, pos.y - 34);
-
-                    break;
-                default:
-                    ctx.fillStyle = 'black';
-                    ctx.fillText(num, pos.x + 27, pos.y - 34);
-                    break;
-            }
-            ctx.fillStyle = 'black';
-            ctx.fillText(nomVaiss, pos.x, pos.y + 10);
-            ctx.fillText(nomJoueur, pos.x, pos.y + 20);
-            break;
-        case type_symbole.moyen:
-            ctx.beginPath();
-            ctx.moveTo(pos.x, pos.y);
-            ctx.lineTo(pos.x + 70, pos.y);
-            ctx.lineTo(pos.x + 90, pos.y - 55);
-            ctx.lineTo(pos.x + 35, pos.y - 95);
-            ctx.lineTo(pos.x - 20, pos.y - 55);
-            ctx.closePath();
-            ctx.lineJoin = 'round';
-            ctx.stroke();
-            ctx.fillStyle = color;
-            ctx.shadowColor = '#999';
-            ctx.shadowBlur = 10;
-            ctx.shadowOffsetX = 5;
-            ctx.shadowOffsetY = 5;
-            ctx.fill();
-            ctx.lineWidth = "2";
-            switch (type) {
-
-                case type_vaisseau.medical:
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x + 35, pos.y - 95);
-                    ctx.lineTo(pos.x + 35, pos.y);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x - 15, pos.y - 40);
-                    ctx.lineTo(pos.x + 86, pos.y - 40);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.fillStyle = 'black';
-                    ctx.fillText(num, pos.x + 20, pos.y - 64);
-                    break;
-                case type_vaisseau.VIP:
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x - 20, pos.y - 55);
-                    ctx.lineTo(pos.x + 35, pos.y);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x + 90, pos.y - 55);
-                    ctx.lineTo(pos.x + 35, pos.y);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.fillStyle = 'black';
-                    ctx.fillText(num, pos.x + 31, pos.y - 64);
-                    break;
-                case type_vaisseau.combat :
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x - 20, pos.y - 55);
-                    ctx.lineTo(pos.x + 70, pos.y);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x + 90, pos.y - 55);
-                    ctx.lineTo(pos.x, pos.y);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.fillStyle = 'black';
-                    ctx.fillText(num, pos.x + 31, pos.y - 64);
-                    break;
-                case type_vaisseau.marchand :
-                    ctx.beginPath();
-                    ctx.rect(pos.x + 10, pos.y - 45, 50, 30);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.fillStyle = 'black';
-                    ctx.fillText(num, pos.x + 31, pos.y - 64);
-                    break;
-                default:
-                    ctx.fillStyle = 'black';
-                    ctx.fillText(num, pos.x + 31, pos.y - 64);
-                    break;
-            }
-            ctx.fillStyle = 'black';
-            ctx.fillText(nomVaiss, pos.x, pos.y + 10);
-            ctx.fillText(nomJoueur, pos.x, pos.y + 20);
-            break;
-        case type_symbole.lourd:
-            ctx.beginPath();
-            ctx.moveTo(pos.x, pos.y);
-            ctx.lineTo(pos.x + 160, pos.y);
-            ctx.lineTo(pos.x + 160, pos.y - 145);
-            ctx.lineTo(pos.x + 155, pos.y - 155);
-            ctx.lineTo(pos.x + 5, pos.y - 155);
-            ctx.lineTo(pos.x, pos.y - 145);
-            ctx.closePath();
-            ctx.lineJoin = 'round';
-            ctx.stroke();
-            ctx.fillStyle = color;
-            ctx.shadowColor = '#999';
-            ctx.shadowBlur = 10;
-            ctx.shadowOffsetX = 5;
-            ctx.shadowOffsetY = 5;
-            ctx.fill();
-            ctx.lineWidth = "2";
-            switch (type) {
-
-                case type_vaisseau.medical:
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x + 80, pos.y - 155);
-                    ctx.lineTo(pos.x + 80, pos.y);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x, pos.y - 76);
-                    ctx.lineTo(pos.x + 160, pos.y - 76);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.fillStyle = 'black';
-                    ctx.fillText(num, pos.x + 60, pos.y - 134);
-                    break;
-                case type_vaisseau.VIP:
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x, pos.y - 85);
-                    ctx.lineTo(pos.x + 80, pos.y);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x + 160, pos.y - 85);
-                    ctx.lineTo(pos.x + 80, pos.y);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.fillStyle = 'black';
-                    ctx.fillText(num, pos.x + 75, pos.y - 134);
-                    break;
-                case type_vaisseau.combat :
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x, pos.y - 85);
-                    ctx.lineTo(pos.x + 160, pos.y);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.beginPath();
-                    ctx.moveTo(pos.x + 160, pos.y - 85);
-                    ctx.lineTo(pos.x, pos.y);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.fillStyle = 'black';
-                    ctx.fillText(num, pos.x + 75, pos.y - 134);
-                    break;
-                case type_vaisseau.marchand :
-                    ctx.beginPath();
-                    ctx.rect(pos.x + 15, pos.y - 115, 130, 100);
-                    ctx.closePath();
-                    ctx.stroke();
-                    ctx.fillStyle = 'black';
-                    ctx.fillText(num, pos.x + 75, pos.y - 134);
-                    break;
-                default:
-                    ctx.fillStyle = 'black';
-                    ctx.fillText(num, pos.x + 75, pos.y - 134);
-                    break;
-            }
-            ctx.fillStyle = 'black';
-            ctx.fillText(nomVaiss, pos.x, pos.y + 10);
-            ctx.fillText(nomJoueur, pos.x, pos.y + 20);
-            break;
-        default:
-            break;
+    this.colorise = function () {
+        this.color = couleurs[this.indice_couleur];
     }
 
+    this.affiche = function () {
+        this.colorise();
+        ctx.save();
+        ctx.strokeStyle = '#202124';
+        ctx.lineWidth = "3";
+        switch (this.symbole) {
+            case type_symbole.leger:
+                ctx.beginPath();
+                ctx.moveTo(this.pos.x, this.pos.y);
+                ctx.lineTo(this.pos.x + 60, this.pos.y);
+                ctx.lineTo(this.pos.x + 60, this.pos.y - 35);
+                ctx.lineTo(this.pos.x + 30, this.pos.y - 45);
+                ctx.lineTo(this.pos.x, this.pos.y - 35);
+                ctx.closePath();
+                ctx.lineJoin = 'round';
+                if (ctx.isPointInPath(clicked.x, clicked.y)) {
+                    this.clicked = true;
+                    ctx.lineWidth = "6";
+                }
+                else {
+                    this.clicked = false;
+                    ctx.lineWidth = "3";
+                }
+                ctx.stroke();
+                ctx.fillStyle = this.color;
+                ctx.shadowColor = '#999';
+                ctx.shadowBlur = 10;
+                ctx.shadowOffsetX = 5;
+                ctx.shadowOffsetY = 5;
+                ctx.fill();
 
-    ctx.lineWidth = "1";
-    ctx.restore();
+                //ctx.fillText(this.clicked, this.pos.x, this.pos.y + 34);
+                ctx.lineWidth = "2";
+                switch (this.type) {
+                    case type_vaisseau.medical:
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x + 30, this.pos.y - 45);
+                        ctx.lineTo(this.pos.x + 30, this.pos.y);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x, this.pos.y - 20);
+                        ctx.lineTo(this.pos.x + 60, this.pos.y - 20);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.fillStyle = 'black';
+                        ctx.fillText(this.num, this.pos.x + 20, this.pos.y - 34);
+                        break;
+                    case type_vaisseau.VIP:
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x, this.pos.y - 25);
+                        ctx.lineTo(this.pos.x + 30, this.pos.y);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x + 60, this.pos.y - 25);
+                        ctx.lineTo(this.pos.x + 30, this.pos.y);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.fillStyle = 'black';
+                        ctx.fillText(this.num, this.pos.x + 27, this.pos.y - 34);
+                        break;
+                    case type_vaisseau.combat :
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x, this.pos.y - 35);
+                        ctx.lineTo(this.pos.x + 60, this.pos.y);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x + 60, this.pos.y - 35);
+                        ctx.lineTo(this.pos.x, this.pos.y);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.fillStyle = 'black';
+                        ctx.fillText(this.num, this.pos.x + 27, this.pos.y - 34);
+                        break;
+                    case type_vaisseau.marchand :
+
+                        ctx.beginPath();
+                        ctx.rect(this.pos.x + 10, this.pos.y - 25, 40, 20);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.fillStyle = 'black';
+                        ctx.fillText(this.num, this.pos.x + 27, this.pos.y - 34);
+
+                        break;
+                    default:
+                        ctx.fillStyle = 'black';
+                        ctx.fillText(this.num, this.pos.x + 27, this.pos.y - 34);
+                        break;
+                }
+                
+                ctx.fillStyle = 'cyan';
+                ctx.fillText(this.nomVaiss, this.pos.x, this.pos.y + 10);
+                ctx.fillText(this.nomJoueur, this.pos.x, this.pos.y + 20);
+                break;
+            case type_symbole.moyen:
+                ctx.beginPath();
+                ctx.moveTo(this.pos.x, this.pos.y);
+                ctx.lineTo(this.pos.x + 70, this.pos.y);
+                ctx.lineTo(this.pos.x + 90, this.pos.y - 55);
+                ctx.lineTo(this.pos.x + 35, this.pos.y - 95);
+                ctx.lineTo(this.pos.x - 20, this.pos.y - 55);
+                ctx.closePath();
+                ctx.lineJoin = 'round';
+                ctx.stroke();
+                ctx.fillStyle = this.color;
+                ctx.shadowColor = '#999';
+                ctx.shadowBlur = 10;
+                ctx.shadowOffsetX = 5;
+                ctx.shadowOffsetY = 5;
+                ctx.fill();
+                ctx.lineWidth = "2";
+                switch (this.type) {
+
+                    case type_vaisseau.medical:
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x + 35, this.pos.y - 95);
+                        ctx.lineTo(this.pos.x + 35, this.pos.y);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x - 15, this.pos.y - 40);
+                        ctx.lineTo(this.pos.x + 86, this.pos.y - 40);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.fillStyle = 'black';
+                        ctx.fillText(this.num, this.pos.x + 20, this.pos.y - 64);
+                        break;
+                    case type_vaisseau.VIP:
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x - 20, this.pos.y - 55);
+                        ctx.lineTo(this.pos.x + 35, this.pos.y);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x + 90, this.pos.y - 55);
+                        ctx.lineTo(this.pos.x + 35, this.pos.y);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.fillStyle = 'black';
+                        ctx.fillText(this.num, this.pos.x + 31, this.pos.y - 64);
+                        break;
+                    case type_vaisseau.combat :
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x - 20, this.pos.y - 55);
+                        ctx.lineTo(this.pos.x + 70, this.pos.y);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x + 90, this.pos.y - 55);
+                        ctx.lineTo(this.pos.x, this.pos.y);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.fillStyle = 'black';
+                        ctx.fillText(this.num, this.pos.x + 31, this.pos.y - 64);
+                        break;
+                    case type_vaisseau.marchand :
+                        ctx.beginPath();
+                        ctx.rect(this.pos.x + 10, this.pos.y - 45, 50, 30);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.fillStyle = 'black';
+                        ctx.fillText(this.num, this.pos.x + 31, this.pos.y - 64);
+                        break;
+                    default:
+                        ctx.fillStyle = 'black';
+                        ctx.fillText(this.num, this.pos.x + 31, this.pos.y - 64);
+                        break;
+                }
+                ctx.fillStyle = 'cyan';
+                ctx.fillText(this.nomVaiss, this.pos.x, this.pos.y + 10);
+                ctx.fillText(this.nomJoueur, this.pos.x, this.pos.y + 20);
+                break;
+            case type_symbole.lourd:
+                ctx.beginPath();
+                ctx.moveTo(this.pos.x, this.pos.y);
+                ctx.lineTo(this.pos.x + 160, this.pos.y);
+                ctx.lineTo(this.pos.x + 160, this.pos.y - 145);
+                ctx.lineTo(this.pos.x + 155, this.pos.y - 155);
+                ctx.lineTo(this.pos.x + 5, this.pos.y - 155);
+                ctx.lineTo(this.pos.x, this.pos.y - 145);
+                ctx.closePath();
+                ctx.lineJoin = 'round';
+                ctx.stroke();
+                ctx.fillStyle = this.color;
+                ctx.shadowColor = '#999';
+                ctx.shadowBlur = 10;
+                ctx.shadowOffsetX = 5;
+                ctx.shadowOffsetY = 5;
+                ctx.fill();
+                ctx.lineWidth = "2";
+                switch (this.type) {
+
+                    case type_vaisseau.medical:
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x + 80, this.pos.y - 155);
+                        ctx.lineTo(this.pos.x + 80, this.pos.y);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x, this.pos.y - 76);
+                        ctx.lineTo(this.pos.x + 160, this.pos.y - 76);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.fillStyle = 'black';
+                        ctx.fillText(this.num, this.pos.x + 60, this.pos.y - 134);
+                        break;
+                    case type_vaisseau.VIP:
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x, this.pos.y - 85);
+                        ctx.lineTo(this.pos.x + 80, this.pos.y);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x + 160, this.pos.y - 85);
+                        ctx.lineTo(this.pos.x + 80, this.pos.y);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.fillStyle = 'black';
+                        ctx.fillText(this.num, this.pos.x + 75, this.pos.y - 134);
+                        break;
+                    case type_vaisseau.combat :
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x, this.pos.y - 85);
+                        ctx.lineTo(this.pos.x + 160, this.pos.y);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(this.pos.x + 160, this.pos.y - 85);
+                        ctx.lineTo(this.pos.x, this.pos.y);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.fillStyle = 'black';
+                        ctx.fillText(this.num, this.pos.x + 75, this.pos.y - 134);
+                        break;
+                    case type_vaisseau.marchand :
+                        ctx.beginPath();
+                        ctx.rect(this.pos.x + 15, this.pos.y - 115, 130, 100);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.fillStyle = 'black';
+                        ctx.fillText(this.num, this.pos.x + 75, this.pos.y - 134);
+                        break;
+                    default:
+                        ctx.fillStyle = 'black';
+                        ctx.fillText(this.num, this.pos.x + 75, this.pos.y - 134);
+                        break;
+                }
+                ctx.fillStyle = 'cyan';
+                ctx.fillText(this.nomVaiss, this.pos.x, this.pos.y + 10);
+                ctx.fillText(this.nomJoueur, this.pos.x, this.pos.y + 20);
+
+                break;
+            default:
+                break;
+        }
+        ctx.lineWidth = "1";
+
+        if (this.clicked) {
+            switch (keyCode) {
+                case 67://c couleur
+                case 38://fleche haut
+                case 40://fleche bas
+                    this.indice_couleur = ++this.indice_couleur % couleurs.length;
+                    break;
+                case 97:
+                case 49:
+                case 76:
+                    this.num='L';
+                    break;
+                case 98:
+                case 50:
+                    this.num=2;
+                    break;
+                case 99:
+                case 51:
+                    this.num=3;
+                    break;
+                case 100:
+                case 52:
+                    this.num=4;
+               break;
+           case 86: //v VIP
+               this.type = type_vaisseau.VIP;
+               break;
+           case 68: //d defaut
+           case 78: //n neutre
+               this.type = this.typeOrigin;
+            }
+            click = false;
+            fonction = '';
+            keyCode = null;
+        }
+
+
+        ctx.restore();
+    }
 }
+
+
