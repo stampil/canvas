@@ -4,7 +4,7 @@ function make_canvas(bg) {
     document.getElementById('canvas').height = bg.h;
     ctx = $('#canvas').get(0).getContext('2d'); // issue de la doc canvas
     ctx.fillStyle = 'black';
-    $('#canvas').css("background","url('img/space_map_grid_only.png')");
+    $('#canvas').css("background", "url('img/space_map_grid_only.png')");
 
 }
 
@@ -79,6 +79,7 @@ function Symbole(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
     this.nomJoueur = nomJoueur;
     this.mouvement = false;
     this.clicked = false;
+    this.clickedForced = false;
 
     this.colorise = function () {
         this.color = couleurs[this.indice_couleur];
@@ -99,7 +100,7 @@ function Symbole(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
                 ctx.lineTo(this.pos.x, this.pos.y - 35);
                 ctx.closePath();
                 ctx.lineJoin = 'round';
-                if (ctx.isPointInPath(clicked.x, clicked.y)) {
+                if (ctx.isPointInPath(clicked.x, clicked.y) || this.clickedForced) {
                     this.clicked = true;
                     ctx.lineWidth = "6";
                 }
@@ -175,7 +176,7 @@ function Symbole(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
                         ctx.fillText(this.num, this.pos.x + 27, this.pos.y - 34);
                         break;
                 }
-                
+
                 ctx.fillStyle = 'black';
                 ctx.fillText(this.nomVaiss, this.pos.x, this.pos.y + 10);
                 ctx.fillText(this.nomJoueur, this.pos.x, this.pos.y + 20);
@@ -189,7 +190,7 @@ function Symbole(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
                 ctx.lineTo(this.pos.x - 20, this.pos.y - 55);
                 ctx.closePath();
                 ctx.lineJoin = 'round';
-                if (ctx.isPointInPath(clicked.x, clicked.y)) {
+                if (ctx.isPointInPath(clicked.x, clicked.y) || this.clickedForced) {
                     this.clicked = true;
                     ctx.lineWidth = "6";
                 }
@@ -276,7 +277,7 @@ function Symbole(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
                 ctx.lineTo(this.pos.x, this.pos.y - 145);
                 ctx.closePath();
                 ctx.lineJoin = 'round';
-                if (ctx.isPointInPath(clicked.x, clicked.y)) {
+                if (ctx.isPointInPath(clicked.x, clicked.y) || this.clickedForced) {
                     this.clicked = true;
                     ctx.lineWidth = "6";
                 }
@@ -369,28 +370,49 @@ function Symbole(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
                 case 97:
                 case 49:
                 case 76:
-                    this.num='L';
+                    this.num = 'L';
                     break;
                 case 98:
                 case 50:
-                    this.num=2;
+                    this.num = 2;
                     break;
                 case 99:
                 case 51:
-                    this.num=3;
+                    this.num = 3;
                     break;
                 case 100:
                 case 52:
-                    this.num=4;
-               break;
-           case 86: //v VIP
-               this.type = type_vaisseau.VIP;
-               break;
-           case 68: //d defaut
-           case 78: //n neutre
-               this.type = this.typeOrigin;
+                    this.num = 4;
+                    break;
+                case 86: //v VIP
+                    if(this.typeOrigin != this.type){
+                         this.type = this.typeOrigin;
+                    }
+                    else{
+                        this.type = type_vaisseau.VIP;
+                    }
+                    break;
+                case 68: //d defaut
+                case 78: //n neutre
+                    this.type = this.typeOrigin;
+                    break;
+                case 77: //m mouvement
+                    if (!this.clickedForced) {
+                        this.pos = cursor;
+                        this.clickedForced = true;
+                    }
+                    else {
+                        this.pos = {x: cursor.x, y: cursor.y};
+                        this.clickedForced = false;
+                        console.log(cursor);
+                    }
+                    break;
+                case 70: //f fixe
+                    this.pos = {x: cursor.x, y: cursor.y};
+                    this.clickedForced = false;
+                    console.log(cursor);
+                    break;
             }
-            click = false;
             fonction = '';
             keyCode = null;
         }

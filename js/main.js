@@ -21,7 +21,6 @@ var symboles = [
 ];
 var bg = {w: 800, h: 600};
 var clicked = position;
-var click = false;
 var keyCode = null;
 
 
@@ -39,7 +38,7 @@ $(window).load(function () { //permet de savoir que toute la page est chargé su
         ctx.clearRect(0, 0, bg.w, bg.h); //efface le canvas entier toute les x seconde, principe du dessin animé qui défile
 
         //Affichage :
-        affiche_pos({x: 1, y: 22}); //ds fonction.js
+        //affiche_pos({x: 1, y: 22}); //ds fonction.js
         affiche_heure({x: 1, y: 10});
 
         for (i in symboles) {
