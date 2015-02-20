@@ -39,9 +39,9 @@ $(window).load(function(){ //permet de savoir que toute la page est chargé sur 
         affiche_symbol({x:264,y:126},type_symbole.leger,couleur.rouge,type_vaisseau.combat,3,'avenger','test nom');
         affiche_symbol({x:330,y:196},type_symbole.leger,couleur.rouge,type_vaisseau.neutre,4,'aurora LX','big');
         affiche_symbol({x:452,y:325},type_symbole.moyen,couleur.jaune,type_vaisseau.VIP,'L','cutlass blue','moyen');
-        affiche_symbol({x:582,y:325},type_symbole.moyen,couleur.jaune,type_vaisseau.medical,'2','cutlass red','moyen');
-        affiche_symbol({x:202,y:395},type_symbole.lourd,couleur.vert,type_vaisseau.combat,'1','idriss','lourd');
-        affiche_symbol({x:8,y:395},type_symbole.lourd,couleur.vert,type_vaisseau.marchand,'L','idriss','lourd');
+        affiche_symbol({x:582,y:325},type_symbole.lourd,couleur.jaune,type_vaisseau.marchand,'2','cutlass red','moyen');
+        affiche_symbol({x:202,y:395},type_symbole.lourd,couleur.vert,type_vaisseau.VIP,'2','idriss','lourd');
+        affiche_symbol({x:8,y:395},type_symbole.lourd,couleur.vert,type_vaisseau.medical,'L','idriss','lourd');
         //affiche_pos(cursor);
         //drawRotatedImage(img_hourglass, {x:180,y:40}, --angle2%360);
         //drawRotatedImage(img_hourglass, {x:27,y:51}, ++angle3%360);

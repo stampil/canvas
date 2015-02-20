@@ -4,6 +4,7 @@ function make_canvas(bg) {
     document.getElementById('canvas').height = bg.h;
     ctx = $('#canvas').get(0).getContext('2d'); // issue de la doc canvas
     ctx.fillStyle = '#cdcdcd';
+    ctx.scale(0.8,0.8);
 }
 ;
 
@@ -90,8 +91,13 @@ function affiche_symbol(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
             ctx.lineTo(pos.x + 30, pos.y - 45);
             ctx.lineTo(pos.x, pos.y - 35);
             ctx.closePath();
+            ctx.lineJoin = 'round';
             ctx.stroke();
             ctx.fillStyle = color;
+            ctx.shadowColor = '#999';
+            ctx.shadowBlur = 10;
+            ctx.shadowOffsetX = 5;
+            ctx.shadowOffsetY = 5;
             ctx.fill();
             ctx.lineWidth = "2";
             switch (type) {
@@ -164,14 +170,19 @@ function affiche_symbol(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
             ctx.lineTo(pos.x + 70, pos.y);
             ctx.lineTo(pos.x + 90, pos.y - 55);
             ctx.lineTo(pos.x + 35, pos.y - 95);
-            ctx.lineTo(pos.x-20, pos.y - 55);
+            ctx.lineTo(pos.x - 20, pos.y - 55);
             ctx.closePath();
+            ctx.lineJoin = 'round';
             ctx.stroke();
             ctx.fillStyle = color;
+            ctx.shadowColor = '#999';
+            ctx.shadowBlur = 10;
+            ctx.shadowOffsetX = 5;
+            ctx.shadowOffsetY = 5;
             ctx.fill();
             ctx.lineWidth = "2";
             switch (type) {
-                
+
                 case type_vaisseau.medical:
                     ctx.beginPath();
                     ctx.moveTo(pos.x + 35, pos.y - 95);
@@ -179,7 +190,7 @@ function affiche_symbol(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
                     ctx.closePath();
                     ctx.stroke();
                     ctx.beginPath();
-                    ctx.moveTo(pos.x-15, pos.y - 40);
+                    ctx.moveTo(pos.x - 15, pos.y - 40);
                     ctx.lineTo(pos.x + 86, pos.y - 40);
                     ctx.closePath();
                     ctx.stroke();
@@ -188,7 +199,7 @@ function affiche_symbol(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
                     break;
                 case type_vaisseau.VIP:
                     ctx.beginPath();
-                    ctx.moveTo(pos.x-20, pos.y - 55);
+                    ctx.moveTo(pos.x - 20, pos.y - 55);
                     ctx.lineTo(pos.x + 35, pos.y);
                     ctx.closePath();
                     ctx.stroke();
@@ -202,7 +213,7 @@ function affiche_symbol(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
                     break;
                 case type_vaisseau.combat :
                     ctx.beginPath();
-                    ctx.moveTo(pos.x-20, pos.y - 55);
+                    ctx.moveTo(pos.x - 20, pos.y - 55);
                     ctx.lineTo(pos.x + 70, pos.y);
                     ctx.closePath();
                     ctx.stroke();
@@ -214,7 +225,7 @@ function affiche_symbol(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
                     ctx.fillStyle = 'black';
                     ctx.fillText(num, pos.x + 31, pos.y - 64);
                     break;
-                case type_vaisseau.marchand :                    
+                case type_vaisseau.marchand :
                     ctx.beginPath();
                     ctx.rect(pos.x + 10, pos.y - 45, 50, 30);
                     ctx.closePath();
@@ -231,44 +242,49 @@ function affiche_symbol(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
             ctx.fillText(nomVaiss, pos.x, pos.y + 10);
             ctx.fillText(nomJoueur, pos.x, pos.y + 20);
             break;
-            case type_symbole.lourd:
+        case type_symbole.lourd:
             ctx.beginPath();
             ctx.moveTo(pos.x, pos.y);
             ctx.lineTo(pos.x + 160, pos.y);
             ctx.lineTo(pos.x + 160, pos.y - 145);
             ctx.lineTo(pos.x + 155, pos.y - 155);
-            ctx.lineTo(pos.x+5, pos.y-155 );
-            ctx.lineTo(pos.x, pos.y-145 );
+            ctx.lineTo(pos.x + 5, pos.y - 155);
+            ctx.lineTo(pos.x, pos.y - 145);
             ctx.closePath();
+            ctx.lineJoin = 'round';
             ctx.stroke();
             ctx.fillStyle = color;
+            ctx.shadowColor = '#999';
+            ctx.shadowBlur = 10;
+            ctx.shadowOffsetX = 5;
+            ctx.shadowOffsetY = 5;
             ctx.fill();
             ctx.lineWidth = "2";
             switch (type) {
-                
+
                 case type_vaisseau.medical:
                     ctx.beginPath();
-                    ctx.moveTo(pos.x + 35, pos.y - 95);
-                    ctx.lineTo(pos.x + 35, pos.y);
+                    ctx.moveTo(pos.x + 80, pos.y - 155);
+                    ctx.lineTo(pos.x + 80, pos.y);
                     ctx.closePath();
                     ctx.stroke();
                     ctx.beginPath();
-                    ctx.moveTo(pos.x-15, pos.y - 40);
-                    ctx.lineTo(pos.x + 86, pos.y - 40);
+                    ctx.moveTo(pos.x, pos.y - 76);
+                    ctx.lineTo(pos.x + 160, pos.y - 76);
                     ctx.closePath();
                     ctx.stroke();
                     ctx.fillStyle = 'black';
-                    ctx.fillText(num, pos.x + 75, pos.y - 134);
+                    ctx.fillText(num, pos.x + 60, pos.y - 134);
                     break;
                 case type_vaisseau.VIP:
                     ctx.beginPath();
-                    ctx.moveTo(pos.x-20, pos.y - 55);
-                    ctx.lineTo(pos.x + 35, pos.y);
+                    ctx.moveTo(pos.x, pos.y - 85);
+                    ctx.lineTo(pos.x + 80, pos.y);
                     ctx.closePath();
                     ctx.stroke();
                     ctx.beginPath();
-                    ctx.moveTo(pos.x + 90, pos.y - 55);
-                    ctx.lineTo(pos.x + 35, pos.y);
+                    ctx.moveTo(pos.x + 160, pos.y - 85);
+                    ctx.lineTo(pos.x + 80, pos.y);
                     ctx.closePath();
                     ctx.stroke();
                     ctx.fillStyle = 'black';
@@ -288,7 +304,7 @@ function affiche_symbol(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
                     ctx.fillStyle = 'black';
                     ctx.fillText(num, pos.x + 75, pos.y - 134);
                     break;
-                case type_vaisseau.marchand :                    
+                case type_vaisseau.marchand :
                     ctx.beginPath();
                     ctx.rect(pos.x + 15, pos.y - 115, 130, 100);
                     ctx.closePath();
@@ -308,6 +324,7 @@ function affiche_symbol(pos, symbole, color, type, num, nomVaiss, nomJoueur) {
         default:
             break;
     }
+
 
     ctx.lineWidth = "1";
     ctx.restore();
