@@ -26,6 +26,29 @@ function affiche_cross(p){
     ctx.fillText('☻',p.x,p.y); // doc canvas : ctx.fillText( text, x, y )
 }
 
+
+
+var inc_sourceX = 0;
+function affiche_goku(){
+		var sourcesX = new Array(257,327,397);
+		var sourceX = sourcesX[++inc_sourceX%sourcesX.length];
+        var sourceY = 200;
+        var sourceWidth = 65;
+        var sourceHeight = 60;
+        var destWidth = sourceWidth;
+        var destHeight = sourceHeight;
+        var destX = 70;
+        var destY = 130;
+
+        ctx.drawImage(Player1, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
+		 ctx.drawImage(Player2, 10, 10, 30, sourceHeight, 120, destY, 30, destHeight);
+		
+
+
+		
+
+}
+
 function affiche_heure(p){
      // p la position où on l'affiche sur le canvas
     var d = new Date();

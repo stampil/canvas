@@ -10,14 +10,22 @@ var angle = angle2 = angle3 = 0;
 var direction = 0;
 var path = new Array();
 var temp_path='';
+var Player1 = new Image();
+Player1.src = 'img/goku_sprites_by_saiyagami-d4pxtss.png';
+var Player2 = new Image();
+Player2.src = 'img/vegeta_androidsaga_battledamaged_75_sprites_lsw_by_zitlezoan-d5t8hzt.png';
+var ground = Math.floor(Math.random()*6)+1;
+
+
+
 
 
 
 
 $(window).load(function(){ //permet de savoir que toute la page est chargé sur le client pour manipuler l'affichage
-    
+
     //TODO recup taille canvas par image d'un background
-    var bg ={w:200,h:200}; // en attendant on peut fixer la taille du canvas a 200x200
+    var bg ={w:512,h:206}; // en attendant on peut fixer la taille du canvas a 200x200
     
     //creation canvas avec taille dynamique ( sur chrome lancer la console ( F12, onglet console ) et ecrire  make_canvas({w:300,h:100}) par exemple
     make_canvas(bg);  //ds fonction.js
@@ -33,10 +41,7 @@ $(window).load(function(){ //permet de savoir que toute la page est chargé sur 
         affiche_direction({x:180,y:185});
         affiche_position({x:1,y:185});
         affiche_path();
-        //affiche_pos(cursor);
-        //drawRotatedImage(img_hourglass, {x:180,y:40}, --angle2%360);
-        //drawRotatedImage(img_hourglass, {x:27,y:51}, ++angle3%360);
-        //drawRotatedImage(img_hourglass, cursor, ++angle%360);
+		affiche_goku();
         
     },refresh); //boucle toute les x secondes
     
