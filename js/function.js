@@ -1,54 +1,28 @@
-function make_canvas(bg){
+function make_canvas(bg) {
     //$('#canvas').width(width); bug : blurry
-    document.getElementById('canvas').width=bg.w;
-    document.getElementById('canvas').height=bg.h;
-    $('#canvas').css('background-image',"url('img/tournois.jpg')");
+    document.getElementById('canvas').width = bg.w;
+    document.getElementById('canvas').height = bg.h;
+    $('#canvas').css('background-image', "url('img/tournois.jpg')");
 
     ctx = $('#canvas').get(0).getContext('2d'); // issue de la doc canvas
     ctx.fillStyle = '#cdcdcd';
     time_debut = Math.round(new Date().getTime());
 };
 
-function affiche_time(p){
-    ctx.fillText(time_passed,p.x,p.y);
+function affiche_time(p) {
+    ctx.fillText(time_passed, p.x, p.y);
 }
 
-function affiche_pos(p){
+function affiche_pos(p) {
     // p la position où on l'affiche sur le canvas
     //cursor : la globale calculé avec l'evenement on mouse over
-    ctx.fillText('('+cursor.x+','+cursor.y+')',p.x,p.y); // doc canvas : ctx.fillText( text, x, y )
+    ctx.fillText('(' + cursor.x + ',' + cursor.y + ')', p.x, p.y); // doc canvas : ctx.fillText( text, x, y )
 }
 
-function affiche_key(p){
-    ctx.fillText(keyPressed,p.x,p.y); // doc canvas : ctx.fillText( text, x, y )
+function affiche_key(p) {
+    ctx.fillText(keyPressed, p.x, p.y); // doc canvas : ctx.fillText( text, x, y )
 }
 
-
-
-function give_me_a_color(){
-    return '#'+Math.random().toString(16).substr(2,6);
-}
-
-/*
- * exemple : drawRotatedImage(img_hourglass, {x:27,y:51}, ++angle3%360);  ou --angle3%360
- */
-function drawRotatedImage(image, p, angle) { 
-        
-	// save the current co-ordinate system 
-	// before we screw with it
-	ctx.save(); 
- 
-	// move to the middle of where we want to draw our image
-	ctx.translate(p.x, p.y);
- 
-	// rotate around that point, converting our 
-	// angle from degrees to radians 
-	ctx.rotate(angle * TO_RADIANS);
- 
-	// draw it up and to the left by half the width
-	// and height of the image 
-	ctx.drawImage(image, -(image.width/2), -(image.height/2));
- 
-	// and restore the co-ords to how they were when we began
-	ctx.restore(); 
+function give_me_a_color() {
+    return '#' + Math.random().toString(16).substr(2, 6);
 }
