@@ -5,21 +5,74 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.11.4/themes/black-tie/jquery-ui.css">
         <script src="js/class.Perso.js"></script>
+
     </head>
     <body>
-    <audio  id="son_intro" autoplay>
+    <audio  id="son_intro" autoplay loop>
         <source src="sound/chala.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio  id="bruitage" >
+        <source src="sound/start.wav" type="audio/wav">
         Your browser does not support the audio element.
     </audio>
 	<center>
         <canvas id="canvas"></canvas><br />
         <script src="js/function.js"></script>
         <script src="js/main.js"></script>
-		</center>
-    <input type="button" value="Player1 test" onclick="Player1.setEtat(Perso.avance)" />
-    <input type="button" value="Player2 test" onclick="Player2.setEtat(Perso.avance)" />
-    <input type="button" value="Player1&2 test" onclick="Player1.setEtat(Perso.avance);Player2.setEtat(Perso.avance)" />
+
+        <br />Interval anim : <span id="res_slider">762</span><div id="slider" style="width:200px"></div>
+        <br />vitesse deplacement : <span id="res_slider2">6</span><div id="slider2" style="width:200px"></div><br /><br />
+    <input type="button" value="Player1 test deplacement" onclick="Player1.setEtat(Perso.avance)" />
+    <input type="button" value="Player2 test deplacement" onclick="Player2.setEtat(Perso.avance)" /><br />
+        <input type="button" value="Player1 test charge" onclick="Player1.setEtat(Perso.charge)" />
+        <input type="button" value="Player2 test charge" onclick="Player2.setEtat(Perso.charge)" /><br />
+        <input type="button" value="Player1 test coup poing" onclick="Player1.setEtat(Perso.coupPoing)" />
+        <input type="button" value="Player2 test coup poing" onclick="Player2.setEtat(Perso.coupPoing)" /><br />
+        <input type="button" value="Player1 test coup pied" onclick="Player1.setEtat(Perso.coupPied)" />
+        <input type="button" value="Player2 test coup pied" onclick="Player2.setEtat(Perso.coupPied)" /><br />
+        <input type="button" value="Player1 test distance petit" onclick="Player1.setEtat(Perso.distancePetit)" />
+        <input type="button" value="Player2 test distance petit" onclick="Player2.setEtat(Perso.distancePetit)" /><br />
+        <input type="button" value="Player1 test distance moyen" onclick="Player1.setEtat(Perso.distanceMoyen)" />
+        <input type="button" value="Player2 test distance moyen" onclick="Player2.setEtat(Perso.distanceMoyen)" /><br />
+        <input type="button" value="Player1 test distance moyen2" onclick="Player1.setEtat(Perso.distanceMoyen2)" />
+        <input type="button" value="Player2 test distance moyen2" onclick="Player2.setEtat(Perso.distanceMoyen2)" /><br />
+        <input type="button" value="Player1 test distance grand" onclick="Player1.setEtat(Perso.distanceGrand)" />
+        <input type="button" value="Player2 test distance grand" onclick="Player2.setEtat(Perso.distanceGrand)" /><br />
+        <div><form name="form" method="post" action="upload.php" enctype="multipart/form-data">
+        Test sprite gauche: <input type="file" placeholder="sprite gauche" onchange="document.form.submit();" name="spriteG" value="" /> |
+            Test sprite droite: <input type="file" placeholder="sprite droite"  onchange="document.form.submit();" name="spriteD" value=""  />
+        </form></div>
+    </center>
+    <script>
+
+        $(function() {
+            $( "#slider" ).slider({
+                min: 100,
+                max: 1000,
+                value:762,
+                slide: function( event, ui ) {
+                    Perso.intervalAnimation = ui.value;
+                    $( "#res_slider" ).html(  ui.value);
+                }
+            });
+
+            $( "#slider2" ).slider({
+                min: 1,
+                max: 30,
+                value:6,
+                slide: function( event, ui ) {
+                    Perso.vitesseDeplacement = ui.value;
+                    $( "#res_slider2" ).html(  ui.value);
+
+                }
+            });
+            setTimeout(function(){Player1.setEtat(Perso.repos);Player2.setEtat(Perso.repos);},1500);
+        });
+    </script>
     </body>
 </html>

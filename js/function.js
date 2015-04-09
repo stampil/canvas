@@ -2,7 +2,7 @@ function make_canvas(bg) {
     //$('#canvas').width(width); bug : blurry
     document.getElementById('canvas').width = bg.w;
     document.getElementById('canvas').height = bg.h;
-    $('#canvas').css('background-image', "url('img/tournois.jpg')");
+    $('#canvas').css('background-image', "url('img/tournois2.jpg')");
 
     ctx = $('#canvas').get(0).getContext('2d'); // issue de la doc canvas
     ctx.fillStyle = '#cdcdcd';

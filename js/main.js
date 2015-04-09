@@ -5,15 +5,16 @@ var cursor = {x: 0, y: 0}; // défini un objet nommé cursor ayant 2 methode : x
 
 var keyPressed = '';
 
-var Player1 = new Perso('Sprite_Goku_1.png');
+var Player1 = new Perso('spriteG.png');
 Player1.setNom("Goku");
 Player1.setSettings(SettingsPerso.gauche);
 
-var Player2 = new Perso('Sprite_Goku_1_droit.png');
+var Player2 = new Perso('spriteD.png');
 Player2.setNom("Vegeta");
 Player2.setSettings(SettingsPerso.droite);
 
 var son_intro = document.getElementById("son_intro");
+var bruitage = document.getElementById("bruitage");
 
 var time_passed = 0;
 var time_debut = null;
@@ -21,8 +22,7 @@ var time_debut = null;
 $(window).load(function () { //permet de savoir que toute la page est chargé sur le client pour manipuler l'affichage
 
     son_intro.volume = 0.1;
-    var bg = {w: 605, h: 335};
-
+    var bg = {w: 908, h: 503};
     //creation canvas avec taille dynamique ( sur chrome lancer la console ( F12, onglet console ) et ecrire  make_canvas({w:300,h:100}) par exemple
     make_canvas(bg);  //ds fonction.js
 
