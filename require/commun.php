@@ -15,6 +15,7 @@ $USER = false;
 
 if(isset($_GET["deco"])){
     session_destroy();
+    header('Location: index.php');
 }
 
 function is_connected(){

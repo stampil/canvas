@@ -6,7 +6,7 @@
         ?>
         <li class='has-sub'><a href='#'>Sprites</a>
             <ul>
-                <li><a href='?action=creer_sprite'>Créer un Sprite</a></li>
+                <li <?php if($action=="creer_sprite") echo 'class="active"' ?>><a href='?action=creer_sprite'>Créer un Sprite</a></li>
                 <li class='has-sub'><a href='#'>Afficher ses Sprites</a>
                     <ul>
                         <li><a href='#'>Aucun sprite a afficher</a></li>
