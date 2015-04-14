@@ -9,7 +9,16 @@
                 <li <?php if($action=="creer_sprite") echo 'class="active"' ?>><a href='?action=creer_sprite'>Créer un Sprite</a></li>
                 <li class='has-sub'><a href='#'>Afficher ses Sprites</a>
                     <ul>
-                        <li><a href='#'>Aucun sprite a afficher</a></li>
+                        <?php
+                        $spriteM = new SpriteManager();
+                        $sprites = $spriteM->get_all_sprite();
+                        $nb_sprite = count($sprites);
+                        if(!$nb_sprite) echo '<li><a href="">Aucun sprite a afficher</a></li>';
+                        for($i=0; $i< $nb_sprite; $i++){
+                            echo '<li><a href="?action=anim_sprite&sprite='.$sprites[$i]->get_id_sprite().'">'.$sprites[$i]->get_nom().'</a></li>';
+                        }
+                        ?>
+
                     </ul>
                 </li>
             </ul>
