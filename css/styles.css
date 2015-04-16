@@ -73,12 +73,22 @@ input[type="submit"] {
     margin: 4px 0px;
 }
 
+.canvas,.canvas_preview{
+
+    background: url('../img/tournois2.jpg') black;
+
+}
 .canvas{
-    width: 300px;
-    height:200px;
-    background: url('../img/grid.png');
+    opacity: 0.25;
+}
+.canvas_bg{
+    display: inline-block;
+    background: url('../img/grid.png') black;
     margin:10px 0;
     border:1px outset gray;
+    padding: 0;
+    width: 900px;
+    height: 500px;
 }
 
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);

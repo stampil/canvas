@@ -22,7 +22,7 @@ var time_debut = null;
 $(window).load(function () { //permet de savoir que toute la page est chargé sur le client pour manipuler l'affichage
 
     son_intro.volume = 0.1;
-    var bg = {w: 908, h: 503};
+    var bg = {w: 900, h: 500};
     //creation canvas avec taille dynamique ( sur chrome lancer la console ( F12, onglet console ) et ecrire  make_canvas({w:300,h:100}) par exemple
     make_canvas(bg);  //ds fonction.js
 

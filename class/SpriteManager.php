@@ -46,6 +46,13 @@ class SpriteManager {
         return $this->bdd->lastInsertId();
     }
 
+    public function list_configsprite(){
+        $query = "SELECT *
+                FROM " . MyPDO::DB_FLAG . "configsprite";
+        $ret = $this->bdd->query($query);
+        return $ret;
+    }
+
 }
 
 ?>

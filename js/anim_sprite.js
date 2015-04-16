@@ -47,7 +47,8 @@ function handleReaderLoad(evt,id, filename) {
     img.src = evt.target.result;
     ctx = $('#'+id).get(0).getContext('2d');
     ctx.clearRect(0,0,1900,1200);
-    ctx.drawImage(img, ((300-img.width)/2), 200-img.height);
+    console.log($('#'+id).width());
+    ctx.drawImage(img, 100-(img.width/2), $('#'+id).height()-img.height-40); //-40 position dans le decors a partir du bas, peros pas coller tout en bas
 
 
 
