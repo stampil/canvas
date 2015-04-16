@@ -42,20 +42,32 @@ var ctx = null;
 });
 
 function handleReaderLoad(evt,id, filename) {
-    console.info(evt,id, filename);
+
     var img = new Image();
     img.src = evt.target.result;
+
     ctx = $('#'+id).get(0).getContext('2d');
     ctx.clearRect(0,0,1900,1200);
-    console.log($('#'+id).width());
-    ctx.drawImage(img, 100-(img.width/2), $('#'+id).height()-img.height-40); //-40 position dans le decors a partir du bas, peros pas coller tout en bas
+    var posX = 100-(img.width/2);
+    var posY = $('#'+id).height()-img.height-40
+    ctx.drawImage(img, posX,posY ); //-40 position dans le decors a partir du bas, peros pas coller tout en bas
+    var splitId = id.split('_');
 
-
-
+    console.info(evt,id, filename,img.width,img.height,posX,posY);
     $.ajax({
         type: 'POST',
         url: 'ajax/upload_sprite.php',
-        data: {"file": img.src,"filename":filename},
+        data: {"file": img.src,
+            "filename":filename,
+            "w":img.width,
+            "h":img.height,
+            "x":posX,
+            "y":posY,
+            "id_configsprite":splitId[2],
+            "num_case":splitId[3],
+            "id_sprite":splitId[4]
+        },
+
         success: function (data) {
             //console.log(data);
         }

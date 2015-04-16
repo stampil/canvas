@@ -28,13 +28,13 @@ De votre personnage au repos
         for($i=1; $i<=$configsprite->nbcase; $i++){
         ?>
             <span class="canvas_bg">
-                <canvas id="canvas_creation_<?php echo $configsprite->id_configsprite;?>_<?php echo $i; ?>" class="canvas"  width="900" height="500"></canvas>
+                <canvas id="canvas_creation_<?php echo $configsprite->id_configsprite;?>_<?php echo $i; ?>_<?php echo $id_sprite; ?>" class="canvas"  width="900" height="500"></canvas>
             </span>
             <?php
         }
         ?>
 
-        <div><canvas id="canvas_preview_<?php echo $configsprite->id_configsprite;?>_<?php echo $i; ?>" class="canvas_preview"  width="900" height="500"></canvas>
+        <div><canvas id="canvas_preview_<?php echo $configsprite->id_configsprite;?>_<?php echo $i; ?>_<?php echo $id_sprite; ?>" class="canvas_preview"  width="900" height="500"></canvas>
         </div>
     <?php
     }

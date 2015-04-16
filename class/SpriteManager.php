@@ -53,6 +53,14 @@ class SpriteManager {
         return $ret;
     }
 
+    public function set_sprite_configsprite($id_sprite,$id_configsprite, $num_case, $width, $height, $posX, $posY){
+
+        $query = "INSERT INTO " . MyPDO::DB_FLAG . "sprite_configsprite (id_sprite,id_configsprite, num_case,  width, height, posX, posY) VALUES(?,?,?,?,?,?,?)
+         ON DUPLICATE KEY UPDATE width=?, height=?, posX=?, posY=?";
+        $ret = $this->bdd->query($query,$id_sprite,$id_configsprite, $num_case, $width, $height, $posX, $posY, $width, $height, $posX, $posY);
+        return $this->bdd->lastInsertId();
+    }
+
 }
 
 ?>
