@@ -1,7 +1,20 @@
 var ctx = null;
 
+function show_old_sprite(id_configsprite,num_case,id_sprite){
+    console.log('show_old_sprite(',id_configsprite,',',num_case,',',id_sprite,')');
+    var img = new Image();
+    img.src = 'upload/SpritePerso/'+id_sprite+'/sprite_'+id_configsprite+'_'+num_case+'.png?'+Math.round(Math.random()*10000); // casse le cache image, pour refresh direct les changements
+
+    var ctx = $('#canvas_creation_'+id_configsprite+'_'+num_case+'_'+id_sprite).get(0).getContext('2d');
+    //ctx.clearRect(0,0,1900,1200);
+    img.onload = function () {
+        console.info('image loaded',img,id_configsprite,num_case,id_sprite);
+        ctx.drawImage(img, 100-(img.width/2),$('#canvas_creation_'+id_configsprite+'_'+num_case+'_'+id_sprite).height()-img.height-40 );
+    }
+}
 
     $(function () {
+
 
     $(document).on('dragenter', '.canvas', function () {
         $(this).css('border', '3px dashed red');

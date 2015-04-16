@@ -22,6 +22,7 @@ class SpriteManager {
 
     public function get_all_sprite($limit = null) {
         global $USER;
+        if(!$USER) return array();
         $query = "SELECT *
                 FROM " . MyPDO::DB_FLAG . "sprite
                 WHERE id_user = ?

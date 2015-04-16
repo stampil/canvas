@@ -2,9 +2,8 @@
 chdir('../');
 require_once 'require/header.php';
 require_once 'require/commun.php';
-var_dump($USER);
-//echo $_POST["file"]
-//set_sprite_configsprite
+if(!is_connected()) exit('session ko');
+
 $id_sprite = $_POST["id_sprite"];
 $id_configsprite = $_POST["id_configsprite"];
 $id_num_case = $_POST["num_case"];
@@ -16,7 +15,7 @@ $file_name = 'sprite_'.$id_configsprite.'_'.$id_num_case.'.png';
 list($type, $data) = explode(';', $data);
 list(, $data)      = explode(',', $data);
 $data = base64_decode($data);
-// Finally, save the image
+
 file_put_contents($rep.$file_name, $data) ;
 
 $spriteM = new SpriteManager();
