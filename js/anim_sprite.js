@@ -9,8 +9,44 @@ function show_old_sprite(id_configsprite,num_case,id_sprite){
     //ctx.clearRect(0,0,1900,1200);
     img.onload = function () {
         console.info('image loaded',img,id_configsprite,num_case,id_sprite);
-        ctx.drawImage(img, 100-(img.width/2),$('#canvas_creation_'+id_configsprite+'_'+num_case+'_'+id_sprite).height()-img.height-40 );
+        ctx.drawImage(img, 100-(img.width/2),$('#canvas_creation_'+id_configsprite+'_'+num_case+'_'+id_sprite).height()-img.height-80 );
     }
+}
+
+var interv_old_sprite = [];
+function show_old_sprite_animated(id_configsprite,id_sprite,nb_case ,img_loaded,imgs){
+
+    if(!img_loaded) clearInterval(interv_old_sprite[id_configsprite]);
+    console.log('show_old_sprite_animated(',id_configsprite,',',id_sprite,',',nb_case,',',img_loaded,',',imgs,')');
+    var tps_anim=0;
+
+    if(img_loaded!=nb_case){
+        var img = new Image();
+        img.src = 'upload/SpritePerso/'+id_sprite+'/sprite_'+id_configsprite+'_'+(1+img_loaded)+'.png?'+Math.round(Math.random()*10000);
+        img.onload = function(){
+            imgs.push(img);
+            show_old_sprite_animated(id_configsprite,id_sprite,nb_case,++img_loaded,imgs);
+            return
+        }.bind(imgs,img);
+
+        return;
+    }
+    console.log('all images loaded',imgs);
+
+    interv_old_sprite[id_configsprite] = setInterval(function(){
+        tps_anim++;
+        var img_number =(tps_anim%nb_case);
+
+        console.log('show_old_sprite_animated(',id_configsprite,',',id_sprite,')' ,imgs[img_number] );
+        var ctx = $('#canvas_preview_'+id_configsprite+'_'+id_sprite).get(0).getContext('2d');
+        ctx.clearRect(0,0,1900,1200);
+        ctx.font="20px Georgia";
+        ctx.fillText("Preview animation!",10,50);
+        if(typeof imgs[img_number] != 'undefined')  ctx.drawImage(imgs[img_number], 100-(imgs[img_number].width/2),$('#canvas_preview_'+id_configsprite+'_'+id_sprite).height()-imgs[img_number].height-80 );
+
+
+    }.bind(tps_anim,nb_case),450);
+
 }
 
     $(function () {
@@ -83,6 +119,7 @@ function handleReaderLoad(evt,id, filename) {
 
         success: function (data) {
             //console.log(data);
+            show_old_sprite_animated(splitId[2],splitId[4],splitId[3],0, new Array());
         }
     });
 }
